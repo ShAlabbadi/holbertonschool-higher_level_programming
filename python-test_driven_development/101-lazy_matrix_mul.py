@@ -25,23 +25,29 @@ def lazy_matrix_mul(m_a, m_b):
     # Check if inputs are lists of lists
     if not all(isinstance(row, list) for row in m_a) or not all(isinstance(row, list) for row in m_b):
         # Handle flat lists
-        if (isinstance(m_a, list) and not isinstance(m_a[0], list) and 
+        if (isinstance(m_a, list) and not isinstance(m_a[0], list) and
             isinstance(m_b, list) and not isinstance(m_b[0], list)):
             raise ValueError(f"shapes ({len(m_a)},) and ({len(m_b)},) not aligned: {len(m_a)} (dim 0) != {len(m_b)} (dim 0)")
         raise ValueError("Scalar operands are not allowed, use '*' instead")
 
-    # Get matrix shapes without spaces
+    # Get matrix shapes
     def get_shape(matrix):
-        if not matrix or not matrix[0]:
-            return f"({len(matrix)},0)"
-        return f"({len(matrix)},{len(matrix[0])})"
+        if not matrix:
+            return (len(matrix), 0)
+        if not matrix[0]:
+            return (len(matrix), 0)
+        return (len(matrix), len(matrix[0]))
 
     a_shape = get_shape(m_a)
     b_shape = get_shape(m_b)
 
+    # Format shapes without spaces for error messages
+    def format_shape(shape):
+        return f"({shape[0]},{shape[1]})"
+
     # Check for empty matrices
-    if a_shape.endswith(",0)") or b_shape.startswith("(0,"):
-        raise ValueError(f"shapes {a_shape} and {b_shape} not aligned: {a_shape.split(',')[1][:-1]} (dim 1) != {b_shape.split(',')[0][1:]} (dim 0)")
+    if a_shape[1] == 0 or b_shape[0] == 0:
+        raise ValueError(f"shapes {format_shape(a_shape)} and {format_shape(b_shape)} not aligned: {a_shape[1]} (dim 1) != {b_shape[0]} (dim 0)")
 
     # Validate all elements are numbers (int or float)
     for matrix in [m_a, m_b]:
@@ -60,5 +66,5 @@ def lazy_matrix_mul(m_a, m_b):
         return np.matmul(m_a, m_b)
     except ValueError as e:
         if "matmul: Input operand" in str(e):
-            raise ValueError(f"shapes {a_shape} and {b_shape} not aligned: {a_shape.split(',')[1][:-1]} (dim 1) != {b_shape.split(',')[0][1:]} (dim 0)")
+            raise ValueError(f"shapes {format_shape(a_shape)} and {format_shape(b_shape)} not aligned: {a_shape[1]} (dim 1) != {b_shape[0]} (dim 0)")
         raise
