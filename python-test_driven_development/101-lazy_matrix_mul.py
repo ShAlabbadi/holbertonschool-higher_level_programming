@@ -25,7 +25,7 @@ def lazy_matrix_mul(m_a, m_b):
     # Check if inputs are lists of lists
     flat_a = isinstance(m_a, list) and not isinstance(m_a[0], list)
     flat_b = isinstance(m_b, list) and not isinstance(m_b[0], list)
-    if (not all(isinstance(row, list) for row in m_a) or 
+    if (not all(isinstance(row, list) for row in m_a) or
             not all(isinstance(row, list) for row in m_b)):
         if flat_a and flat_b:
             msg = f"shapes ({len(m_a)},) and ({len(m_b)},) not aligned: "
