@@ -13,3 +13,4 @@ def safe_print_list(my_list=[], x=0):
                 return (printed_idx)
         except Exception:
             index += 1
+
