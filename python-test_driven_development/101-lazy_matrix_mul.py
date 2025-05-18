@@ -1,32 +1,64 @@
 #!/usr/bin/python3
-"""Matrix multiplication using NumPy with precise error formatting."""
+"""Defines a matrix multiplication function using NumPy."""
 import numpy as np
 
 
 def lazy_matrix_mul(m_a, m_b):
-    """Multiply two matrices with exact error message formatting.
-    
+    """Return the multiplication of two matrices.
+
     Args:
-        m_a: First matrix (list of lists)
-        m_b: Second matrix (list of lists)
-    
-    Returns:
-        Product matrix as numpy array
-    
+        m_a (list of lists of ints/floats): The first matrix.
+        m_b (list of lists of ints/floats): The second matrix.
+
     Raises:
-        ValueError: For shape mismatches
+        ValueError: For scalar operands, shape mismatches, and empty matrices
+        TypeError: For None inputs and invalid data types
     """
+    # Handle None inputs first
+    if m_a is None or m_b is None:
+        raise TypeError("Object arrays are not currently supported")
+
+    # Validate input types
+    if not isinstance(m_a, list) or not isinstance(m_b, list):
+        raise ValueError("Scalar operands are not allowed, use '*' instead")
+
+    # Check if inputs are lists of lists
+    if not all(isinstance(row, list) for row in m_a) or not all(isinstance(row, list) for row in m_b):
+        # Handle flat lists
+        if (isinstance(m_a, list) and not isinstance(m_a[0], list) and 
+            isinstance(m_b, list) and not isinstance(m_b[0], list)):
+            raise ValueError(f"shapes ({len(m_a)},) and ({len(m_b)},) not aligned: {len(m_a)} (dim 0) != {len(m_b)} (dim 0)")
+        raise ValueError("Scalar operands are not allowed, use '*' instead")
+
+    # Get matrix shapes without spaces
+    def get_shape(matrix):
+        if not matrix or not matrix[0]:
+            return f"({len(matrix)},0)"
+        return f"({len(matrix)},{len(matrix[0])})"
+
+    a_shape = get_shape(m_a)
+    b_shape = get_shape(m_b)
+
+    # Check for empty matrices
+    if a_shape.endswith(",0)") or b_shape.startswith("(0,"):
+        raise ValueError(f"shapes {a_shape} and {b_shape} not aligned: {a_shape.split(',')[1][:-1]} (dim 1) != {b_shape.split(',')[0][1:]} (dim 0)")
+
+    # Validate all elements are numbers (int or float)
+    for matrix in [m_a, m_b]:
+        for row in matrix:
+            for element in row:
+                if not isinstance(element, (int, float)):
+                    raise TypeError("invalid data type for einsum")
+
+    # Check for consistent row sizes
+    if len(set(len(row) for row in m_a)) > 1:
+        raise ValueError("setting an array element with a sequence.")
+    if len(set(len(row) for row in m_b)) > 1:
+        raise ValueError("setting an array element with a sequence.")
+
     try:
-        np_a = np.array(m_a)
-        np_b = np.array(m_b)
-        return np.matmul(np_a, np_b)
+        return np.matmul(m_a, m_b)
     except ValueError as e:
         if "matmul: Input operand" in str(e):
-            # Format shapes without spaces
-            a_shape = f"({len(m_a)},{len(m_a[0])})" if m_a and m_a[0] else f"({len(m_a)},0)"
-            b_shape = f"({len(m_b)},{len(m_b[0])})" if m_b and m_b[0] else f"({len(m_b)},0)"
-            raise ValueError(
-                f"shapes {a_shape} and {b_shape} not aligned: "
-                f"{a_shape.split(',')[1][:-1]} (dim 1) != {b_shape.split(',')[0][1:]} (dim 0)"
-            )
+            raise ValueError(f"shapes {a_shape} and {b_shape} not aligned: {a_shape.split(',')[1][:-1]} (dim 1) != {b_shape.split(',')[0][1:]} (dim 0)")
         raise
