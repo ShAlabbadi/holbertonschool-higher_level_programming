@@ -22,23 +22,18 @@ def lazy_matrix_mul(m_a, m_b):
     if not all(isinstance(row, list) for row in m_a) or not all(isinstance(row, list) for row in m_b):
         raise TypeError("Scalar operands are not allowed, use '*' instead")
 
-    # Special handling for empty matrices
+    # Get matrix shapes without spaces in the string representation
     def get_shape(matrix):
         if not matrix or not matrix[0]:
-            return (len(matrix), 0)
-        return (len(matrix), len(matrix[0]))
+            return f"({len(matrix)},0)"
+        return f"({len(matrix)},{len(matrix[0])})"
 
     a_shape = get_shape(m_a)
     b_shape = get_shape(m_b)
 
-    # Check for empty matrices with specific error messages
-    if a_shape[1] == 0 or b_shape[0] == 0:
-        if a_shape == (1, 0) and b_shape == (2, 2):
-            raise ValueError("shapes (1,0) and (2,2) not aligned: 0 (dim 1) != 2 (dim 0)")
-        elif a_shape == (2, 2) and b_shape == (1, 0):
-            raise ValueError("shapes (2,2) and (1,0) not aligned: 2 (dim 1) != 1 (dim 0)")
-        else:
-            raise ValueError(f"shapes {a_shape} and {b_shape} not aligned: {a_shape[1]} (dim 1) != {b_shape[0]} (dim 0)")
+    # Check for empty matrices
+    if a_shape.endswith(",0)") or b_shape.startswith("(0,"):
+        raise ValueError(f"shapes {a_shape} and {b_shape} not aligned: {a_shape.split(',')[1][:-1]} (dim 1) != {b_shape.split(',')[0][1:]} (dim 0)")
 
     # Validate all elements are numbers (int or float)
     for matrix in [m_a, m_b]:
@@ -57,5 +52,5 @@ def lazy_matrix_mul(m_a, m_b):
         return np.matmul(m_a, m_b)
     except ValueError as e:
         if "matmul: Input operand" in str(e):
-            raise ValueError(f"shapes {a_shape} and {b_shape} not aligned: {a_shape[1]} (dim 1) != {b_shape[0]} (dim 0)")
+            raise ValueError(f"shapes {a_shape} and {b_shape} not aligned: {a_shape.split(',')[1][:-1]} (dim 1) != {b_shape.split(',')[0][1:]} (dim 0)")
         raise
