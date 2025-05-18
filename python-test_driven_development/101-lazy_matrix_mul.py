@@ -23,17 +23,16 @@ def lazy_matrix_mul(m_a, m_b):
         raise ValueError("Scalar operands are not allowed, use '*' instead")
 
     # Check if inputs are lists of lists
-    if (not all(isinstance(row, list) for row in m_a) or (not all(isinstance(row, list) for row in m_b):
+    if not all(isinstance(row, list) for row in m_a) or not all(isinstance(row, list) for row in m_b):
         # Handle flat lists
-        if not isinstance(m_a[0], list) and not isinstance(m_b[0], list):
+        if (isinstance(m_a, list) and not isinstance(m_a[0], list) and 
+            isinstance(m_b, list) and not isinstance(m_b[0], list)):
             raise ValueError(f"shapes ({len(m_a)},) and ({len(m_b)},) not aligned: {len(m_a)} (dim 0) != {len(m_b)} (dim 0)")
         raise ValueError("Scalar operands are not allowed, use '*' instead")
 
     # Get matrix shapes
     def get_shape(matrix):
-        if not matrix:
-            return (len(matrix), 0)
-        if not matrix[0]:
+        if not matrix or not matrix[0]:
             return (len(matrix), 0)
         return (len(matrix), len(matrix[0]))
 
