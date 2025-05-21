@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """A class that defines a square with size validation and area calculation"""
 
-
 class Square:
     """ defines class named Square """
 
@@ -12,7 +11,7 @@ class Square:
     @property
     def size(self):
         """property to retrieve the size"""
-        return self.__size    
+        return self.__size
 
     @size.setter
     def size(self, value):
@@ -21,8 +20,7 @@ class Square:
             raise TypeError("size must be an integer")
         elif value < 0:
             raise ValueError("size must be >= 0")
-        else:
-            self.__size = value
+        self.__size = value
 
     def area(self):
         """method returns the current square area"""
