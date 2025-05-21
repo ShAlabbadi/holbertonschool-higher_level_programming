@@ -1,27 +1,30 @@
 #!/usr/bin/python3
-"""A class that defines a square with size validation and area calculation"""
+"""class Square that defines a square"""
+
 
 class Square:
-    """ defines class named Square """
+    """class Square that defines a square"""
 
     def __init__(self, size=0):
         """Instantiation with optional size"""
-        self.size = size
+        self.__size = size
 
     @property
     def size(self):
-        """property to retrieve the size"""
+        """property to retrieve it"""
         return self.__size
 
     @size.setter
     def size(self, value):
-        """property setter to set the size"""
-        if not isinstance(value, int):
+        """property setter to set it"""
+        if type(value) is int:
+            if value >= 0:
+                self.__size = value
+            else:
+                raise ValueError("size must be >= 0")
+        else:
             raise TypeError("size must be an integer")
-        elif value < 0:
-            raise ValueError("size must be >= 0")
-        self.__size = value
 
     def area(self):
-        """method returns the current square area"""
+        """Public instance method that returns the current square area"""
         return self.__size * self.__size
