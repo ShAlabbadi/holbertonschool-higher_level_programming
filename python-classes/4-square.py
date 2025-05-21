@@ -4,7 +4,9 @@
 
 class Square:
     """ defines class named Square """
+
     def __init__(self, size=0):
+        """Instantiation with optional size"""
         self.__size = size
 
     @property
