@@ -2,7 +2,6 @@
 """A class that defines a square with size validation and area calculation"""
 
 
-
 class Square:
     """ defines class named Square """
 
