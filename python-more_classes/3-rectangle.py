@@ -48,6 +48,6 @@ class Rectangle:
             return ""
         else:
             rectangle_str = []
-            for i in range (self.__height):
+            for i in range(self.__height):
                 rectangle_str.append("#" * self.__width)
             return "\n".join(rectangle_str)
