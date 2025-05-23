@@ -44,8 +44,7 @@ class Rectangle:
             return (self.__width * 2) + (self.__height * 2)
 
     def __str__(self):
-        for i in range (0, self.__height):
-            for j in range (0, self.__width):
-                print("#" ,end="")
-            print ("")
-        return ""
+        rectangle_str = []
+        for i in range (self.__height):
+            rectangle_str.append("#" * self.__width)
+        return "\n".join(rectangle_str)
