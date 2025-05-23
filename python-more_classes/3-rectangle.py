@@ -39,13 +39,11 @@ class Rectangle:
 
     def perimeter(self):
         if self.__width == 0 or self.__height == 0:
-            print ("")
-            return 0
+            return ""
         else:
             for i in range (0, self.__height):
                 for j in range (0, self.__width):
                     print("#" ,end="")
                 print("")
 
-        per = (self.__width * 2) + (self.__height * 2)
-        return per
+        return (self.__width * 2) + (self.__height * 2)
