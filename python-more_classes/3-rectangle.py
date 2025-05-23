@@ -41,9 +41,11 @@ class Rectangle:
         if self.__width == 0 or self.__height == 0:
             return ""
         else:
-            for i in range (0, self.__height):
-                for j in range (0, self.__width):
-                    print("#" ,end="")
-                print("")
+            return (self.__width * 2) + (self.__height * 2)
 
-        return (self.__width * 2) + (self.__height * 2)
+    def __str__(self):
+        for i in range (0, self.__height):
+            for j in range (0, self.__width):
+                print("#" ,end="")
+            print ("")
+        return ""
