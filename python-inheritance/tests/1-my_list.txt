@@ -41,7 +41,6 @@
 
 >>> my_list = MyList([3, 1, 2])
 >>> sorted_list = my_list.print_sorted()
-[1, 2, 3]
 >>> print(sorted_list)
 [1, 2, 3]
 
