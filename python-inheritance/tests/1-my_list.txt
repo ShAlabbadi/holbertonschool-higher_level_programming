@@ -39,6 +39,3 @@
 >>> print(my_list)
 [10, 20, 30]
 
->>> my_list = MyList([4, 2, 5])
->>> my_list.print_sorted()
-[2, 4, 5]
