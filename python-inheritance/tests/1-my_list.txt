@@ -35,3 +35,6 @@
 >>> my_list.print_sorted()
 []
 
+>>> my_list = MyList([10, 20, 30])
+>>> print(my_list)
+[10, 20, 30]
