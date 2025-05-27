@@ -4,5 +4,5 @@ that inherited (directly or indirectly) from the specified class ; otherwise Fal
 
 
 def inherits_from(obj, a_class):
-    """Check if the class obj is a subclass of a_class"""
-    return issubclass(type(obj), a_class)
+    """Check if the obj is a subclass of a_class"""
+    return issubclass(obj, a_class)
