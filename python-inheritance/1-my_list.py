@@ -8,8 +8,3 @@ class MyList(list):
     def print_sorted(self):
         """Print the list in sorted ascending order."""
         print(sorted(self))
-
-
-# if __name__ == "__main__":
-# import doctest
-# doctest.testfile("tests/1-my_list.txt")
