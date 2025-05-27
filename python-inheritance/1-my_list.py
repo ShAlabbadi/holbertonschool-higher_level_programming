@@ -7,7 +7,6 @@ class MyList(list):
 
     def print_sorted(self):
         print(sorted(self))
-        return sorted(self)
 
 if __name__ == "__main__":
     import doctest
