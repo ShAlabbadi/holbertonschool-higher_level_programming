@@ -13,4 +13,4 @@ class MyList(list):
 
     def str(self):
         """Returns the string representation of the list."""
-        return str(list(self))
+        return str(list(self))
