@@ -6,6 +6,7 @@ class MyList(list):
     """ a class named MyList"""
 
     def print_sorted(self):
+        print(sorted(self))
         return sorted(self)
 
     if __name__ == "__main__":
