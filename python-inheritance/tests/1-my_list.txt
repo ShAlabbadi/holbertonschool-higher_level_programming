@@ -41,6 +41,5 @@
 
 >>> my_list = MyList([8, 11, 9])
 >>> new_list = my_list.print_sorted()
->>> print(new_list)
 [8, 9, 11]
 
