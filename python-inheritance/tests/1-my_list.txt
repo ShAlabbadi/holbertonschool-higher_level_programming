@@ -40,6 +40,7 @@
 [10, 20, 30]
 
 >>> my_list = MyList([8, 11, 9])
->>> my_list.print_sorted()
+>>> new_list = my_list.print_sorted()
+>>> print(new_list)
 [8, 9, 11]
 
