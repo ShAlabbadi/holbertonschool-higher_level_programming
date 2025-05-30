@@ -1,17 +1,19 @@
 #!/usr/bin/python3
-"""Write a class MyInt that inherits from int"""
+"""
+   MyInt is a rebel. MyInt has == and != operators inverted
+"""
 
 
 class MyInt(int):
-    """MyInt class"""
-    def __eq__(self, n):
+    """Class MyInt that inherits from int"""
+    def __eq__(self, num):
         """Equal"""
-        if (self.real == n):
+        if (self.real == num):
             return False
         return True
 
-    def __noeq__(self, n):
-        """Not equal"""
-        if (self.real != n):
+    def __ne__(self, num):
+        """No equal"""
+        if(self.real != num):
             return False
         return True
