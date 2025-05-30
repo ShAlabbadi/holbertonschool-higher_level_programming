@@ -14,6 +14,6 @@ class MyInt(int):
 
     def __ne__(self, num):
         """No equal"""
-        if(self.real != num):
+        if (self.real != num):
             return False
         return True
