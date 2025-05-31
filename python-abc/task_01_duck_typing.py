@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""an abstract class Shape using the ABC package."""
 from abc import ABC, abstractmethod
 from math import pi
 
