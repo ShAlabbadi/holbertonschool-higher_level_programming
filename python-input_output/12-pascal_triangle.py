@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """Create a function that returns a list of lists of integers representing
-                        the Pascals triangle of n"""
+the Pascals triangle of n"""
 
 
 def pascal_triangle(n):
     """a function Pascals triangle of n"""
     if n <= 0:
         return []
-    
+
     if n == 1:
         return [[1]]
 
