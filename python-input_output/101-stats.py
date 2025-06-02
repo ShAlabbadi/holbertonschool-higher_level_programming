@@ -45,6 +45,8 @@ def main():
         if line_count > 0:
             print_stats(total_size, status_codes)
 
+        print_stats(total_size, status_codes)
+
     except KeyboardInterrupt:
         print_stats(total_size, status_codes)
         raise
