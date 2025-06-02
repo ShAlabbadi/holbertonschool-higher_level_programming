@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Module for parsing and displaying log statistics"""
-
 import sys
 
 
@@ -41,9 +40,6 @@ def main():
 
             if line_count % 10 == 0:
                 print_stats(total_size, status_codes)
-
-        if line_count > 0:
-            print_stats(total_size, status_codes)
 
         print_stats(total_size, status_codes)
 
