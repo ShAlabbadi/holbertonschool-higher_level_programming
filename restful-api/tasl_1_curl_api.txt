@@ -1,0 +1,86 @@
+Consuming APIs with curl
+=======================
+
+1. Installation & Verification
+----------------------------
+# Check if curl is installed
+curl --version
+
+# Install on Ubuntu/Debian
+sudo apt install curl
+
+# Install on CentOS/RHEL
+sudo yum install curl
+
+2. Basic Requests
+----------------
+# GET request (fetch webpage)
+curl http://example.com
+
+# GET API request
+curl https://jsonplaceholder.typicode.com/posts
+
+3. Working with Headers
+----------------------
+# View response headers only
+curl -I https://jsonplaceholder.typicode.com/posts
+
+# View request + response headers
+curl -v https://jsonplaceholder.typicode.com/posts
+
+# Custom headers
+curl -H "Content-Type: application/json" \
+     -H "Authorization: Bearer token123" \
+     https://api.example.com/data
+
+4. POST Requests
+---------------
+# Simple POST with form data
+curl -X POST \
+     -d "title=foo&body=bar&userId=1" \
+     https://jsonplaceholder.typicode.com/posts
+
+# POST with JSON data
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -d '{"title":"foo","body":"bar","userId":1}' \
+     https://jsonplaceholder.typicode.com/posts
+
+5. Output Formatting
+-------------------
+# Pretty-print JSON output
+curl https://jsonplaceholder.typicode.com/posts | jq
+
+# Save output to file
+curl -o output.json https://jsonplaceholder.typicode.com/posts
+
+6. Common Options
+----------------
+-X <METHOD>   Specify HTTP method (GET, POST, etc.)
+-H <HEADER>   Add custom header
+-d <DATA>     Send request body data
+-o <FILE>     Save output to file
+-v            Verbose output (debugging)
+-s            Silent mode (no progress meter)
+
+7. Expected Results
+------------------
+# GET /posts
+- Returns JSON array of post objects
+- Each post has: userId, id, title, body
+
+# POST /posts
+- Returns simulated created post
+- Includes all sent data plus new id (101)
+- Example response:
+  {
+    "title": "foo",
+    "body": "bar",
+    "userId": 1,
+    "id": 101
+  }
+
+Tips:
+- Use jq to process JSON responses: curl ... | jq '.[0].title'
+- For complex APIs, store requests in files and use @filename syntax
+- Combine with grep for quick searching: curl ... | grep "title"
