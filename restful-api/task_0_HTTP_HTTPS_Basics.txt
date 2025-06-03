@@ -1,0 +1,64 @@
+HTTP/HTTPS Basics
+=================
+
+HTTP vs HTTPS
+-------------
+HTTP:
+- Unencrypted
+- Port 80
+- Plain text transmission
+- No identity verification
+- Vulnerable to attacks
+
+HTTPS:
+- Encrypted (SSL/TLS)
+- Port 443
+- Secure data transmission
+- Uses certificates for verification
+- Protected against attacks
+
+HTTP Request Structure
+----------------------
+GET /index.html HTTP/1.1
+Host: www.example.com
+User-Agent: Mozilla/5.0
+Accept: text/html
+[blank line]
+
+HTTP Response Structure
+-----------------------
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 123
+[blank line]
+<html>...</html>
+
+Common HTTP Methods
+-------------------
+1. GET - Retrieve data (safe, idempotent)
+2. POST - Submit data (not idempotent)
+3. PUT - Update resource (idempotent)
+4. DELETE - Remove resource (idempotent)
+
+Common Status Codes
+------------------
+2xx Success:
+200 OK - Request succeeded
+
+3xx Redirection:
+301 Moved Permanently
+
+4xx Client Errors:
+400 Bad Request
+404 Not Found
+
+5xx Server Errors:
+500 Internal Server Error
+
+Status Code Categories
+----------------------
+1xx - Informational
+2xx - Success
+3xx - Redirection
+4xx - Client Error
+5xx - Server Error
