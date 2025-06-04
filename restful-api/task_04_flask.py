@@ -1,9 +1,12 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+"""
+Flask API implementation for user management
+"""
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-# Initialize with some sample users
+# In-memory user database
 users = {
     "jane": {
         "username": "jane",
@@ -19,27 +22,37 @@ users = {
     }
 }
 
+
 @app.route('/')
 def home():
+    """Root endpoint returning welcome message"""
     return "Welcome to the Flask API!"
+
 
 @app.route('/data')
 def get_data():
+    """Endpoint returning list of usernames"""
     return jsonify(list(users.keys()))
+
 
 @app.route('/status')
 def status():
+    """Status endpoint"""
     return "OK"
+
 
 @app.route('/users/<username>')
 def get_user(username):
+    """Endpoint returning user details by username"""
     user = users.get(username)
     if user:
         return jsonify(user)
     return jsonify({"error": "User not found"}), 404
 
+
 @app.route('/add_user', methods=['POST'])
 def add_user():
+    """Endpoint for adding new users"""
     if not request.is_json:
         return jsonify({"error": "Request must be JSON"}), 400
 
@@ -60,6 +73,7 @@ def add_user():
         "message": "User added",
         "user": users[username]
     }), 201
+
 
 if __name__ == '__main__':
     app.run(debug=True)
