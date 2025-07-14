@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Items List - My Flask App{% endblock %}
+
+{% block content %}
+    <h1>Items List</h1>
+    
+    {% if items %}
+        <p>Here are the available items:</p>
+        <ul>
+            {% for item in items %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-items">No items found</p>
+    {% endif %}
+    
+    <style>
+        .no-items {
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
