@@ -33,20 +33,19 @@ def display_products():
     """Route to display products with optional filtering"""
     source = request.args.get('source', '').lower()
     product_id = request.args.get('id')
-    
-    # Load data based on source
-    if source == 'json':
-        products = load_json_products()
-    elif source == 'csv':
-        products = load_csv_products()
-    else:
-        return render_template('product_display.html', 
+
+    # Validate source parameter
+    if source not in ['json', 'csv']:
+        return render_template('product_display.html',
                             error="Wrong source. Please use 'json' or 'csv'")
-    
+
+    # Load data based on source
+    products = load_json_products() if source == 'json' else load_csv_products()
+
     if products is None:
-        return render_template('product_display.html', 
+        return render_template('product_display.html',
                             error=f"Error loading {source} data")
-    
+
     # Filter by ID if provided
     if product_id:
         try:
@@ -54,26 +53,17 @@ def display_products():
             filtered_products = [p for p in products if p['id'] == product_id]
             if not filtered_products:
                 return render_template('product_display.html',
-                                    error=f"Product with ID {product_id} not found")
+                                    error="Product not found",
+                                    products=[])
             products = filtered_products
         except ValueError:
             return render_template('product_display.html',
-                                error="Product not found")
-    
-    return render_template('product_display.html', products=products)
+                                error="Invalid product ID",
+                                products=[])
 
-# Keep existing routes from previous tasks
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
+    return render_template('product_display.html',
+                         products=products,
+                         error=None)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
