@@ -12,6 +12,10 @@
     {% endif %}
 
     {% if products %}
+    <div class="source-info">
+            Showing data from: <strong>{{ request.args.get('source', '').upper() }}</strong>
+        </div>
+
         <table class="product-table">
             <thead>
                 <tr>
@@ -57,6 +61,11 @@
             border: 1px solid #f5c6cb;
             border-radius: 4px;
             margin: 20px 0;
+        }
+	 .source-info {
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: #666;
         }
     </style>
 {% endblock %}
