@@ -58,7 +58,7 @@ def display_products():
             products = filtered_products
         except ValueError:
             return render_template('product_display.html',
-                                error="Invalid product ID")
+                                error="Product not found")
     
     return render_template('product_display.html', products=products)
 
